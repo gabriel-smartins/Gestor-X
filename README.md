@@ -1,4 +1,4 @@
-# GestorX - Sistema de Gerenciamento de Inventário (MERN Stack)
+# GestorX - Sistema de Gerenciamento de Estoque
 
 ## 📦 Instalação
 
@@ -36,11 +36,17 @@ cd frontend
 npm run dev
 
 # Execute o comando "node seed.js" na raiz do projeto
-cd ..
 node seed.js
 
 # Efetue o login 
 email: admin@gmail.com
 senha: admin
+
+⚙️ Notas Adicionais
+Certifique-se de ter o Node.js e o npm instalados em seu sistema.
+
+Tanto o frontend quanto o backend precisam estar em execução simultaneamente para o sistema funcionar corretamente.
+
+Para o banco de dados MongoDB, utilize o MongoDB Compass ou configure uma conexão com o MongoDB Atlas.
 
 
