@@ -24,7 +24,7 @@ const addOrder = async (req, res) => {
       .json({ success: true, message: "Pedido criado com sucesso" });
   } catch (error) {
     
-    res.status(500).json({ success: false, error: "Server error" });
+    res.status(500).json({ success: false, error: "Erro de servidor" });
   }
 };
 
