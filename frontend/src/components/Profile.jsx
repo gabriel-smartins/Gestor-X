@@ -92,10 +92,11 @@ const Profile = () => {
 
       <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow max-w-md">
         <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
             Nome
           </label>
           <input
+            id="name"
             type="text"
             name="name"
             value={userData.name}
@@ -106,10 +107,11 @@ const Profile = () => {
         </div>
 
         <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
             Email
           </label>
           <input
+            id="email"
             type="email"
             name="email"
             value={userData.email}
@@ -120,10 +122,11 @@ const Profile = () => {
         </div>
 
         <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="address" className="block text-sm font-medium text-gray-700 mb-1">
             Endereço
           </label>
           <input
+            id="address"
             type="text"
             name="address"
             value={userData.address}
@@ -135,10 +138,11 @@ const Profile = () => {
 
         {isEditing && (
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
               Senha
             </label>
             <input
+              id="password"
               type="password"
               name="password"
               value={userData.password || ''}
@@ -152,7 +156,7 @@ const Profile = () => {
         <div className="flex gap-2">
           {!isEditing ? (
             <button
-            type='button'
+              type='button'
               onClick={(e) => {
                 e.preventDefault();
                 setIsEditing(true);

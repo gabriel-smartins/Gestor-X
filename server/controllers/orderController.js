@@ -3,25 +3,30 @@ import Order from "../models/Order.js";
 
 const addOrder = async (req, res) => {
   try {
-    const { productId, quantity, total } = req.body;
+    const { productId, quantity} = req.body;
     const userId = req.user._id;
     const product = await Product.findById({_id: productId});
-    if (!product) return res.status(404).json({ error: 'Produto não encotrado' });
+    if (!product) return res.status(404).json({ error: 'Produto não encontrado' });
 
     
       product.stock += parseInt(quantity);
       await product.save();
+
+      const totalPrice = product.price * quantity;
     
     const order = new Order({
       user: userId,
       product: productId,
       quantity,
-      totalPrice: total
+      totalPrice
     });
     await order.save();
-    res
+   return res
       .status(201)
-      .json({ success: true, message: "Pedido criado com sucesso" });
+      .json({ success: true, message: "Pedido criado com sucesso",
+      order
+       });
+      
   } catch (error) {
     
     res.status(500).json({ success: false, error: "Erro de servidor" });

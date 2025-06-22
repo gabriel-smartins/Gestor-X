@@ -18,7 +18,7 @@ const addProduct = async (req, res) => {
       .json({ success: true, message: "Produto criado com sucesso" });
   } catch (error) {
     console.error(error.message);
-    res.status(500).json({ success: false, error: "Erro de servidor" });
+    res.status(500).json({ success: false, error: error.message });
   }
 };
 
@@ -42,7 +42,7 @@ const updateProduct = async (req, res) => {
 
     const product = await Product.findById({ _id: id });
     if (!product) {
-      res.status(404).json({ success: false, error: "Produto não encotrado" });
+     return res.status(404).json({ success: false, error: "Produto não encotrado" });
     }
 
     const updateUser = await Product.findByIdAndUpdate(

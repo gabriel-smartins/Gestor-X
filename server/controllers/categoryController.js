@@ -1,7 +1,6 @@
 import Category from "../models/Category.js";
 import Product from "../models/Product.js";
 
-
 const addCategory = async (req, res) => {
   try {
     const { formCategory, formDescription } = req.body;

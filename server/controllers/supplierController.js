@@ -1,12 +1,10 @@
 import Supplier from "../models/Supplier.js";
 import Product from "../models/Product.js";
 
-
 const addSupplier = async (req, res) => {
   try {
     const { name, email, phone, address } = req.body;
 
- 
     let existingSupplier = await Supplier.findOne({ email });
     if (existingSupplier) {
       return res
@@ -14,30 +12,30 @@ const addSupplier = async (req, res) => {
         .json({ success: false, error: "Fornecedor já existe" });
     }
 
-
     const newSupplier = new Supplier({
       name,
       email,
       phone,
       address,
     });
-    const supplier = await newSupplier.save();
 
-    res
+    await newSupplier.save();
+
+    return res
       .status(201)
       .json({ success: true, message: "Fornecedor criado com sucesso!" });
   } catch (error) {
     console.error(error.message);
-    res.status(500).json({ success: false, error: "Server error" });
+    return res.status(500).json({ success: false, error: "Server error" });
   }
 };
 
 const getSuppliers = async (req, res) => {
   try {
     const suppliers = await Supplier.find();
-    res.status(201).json({ success: true, suppliers });
+    return res.status(201).json({ success: true, suppliers });
   } catch (error) {
-    res
+    return res
       .status(500)
       .json({ success: false, error: "Server error " + error.message });
   }
@@ -50,7 +48,9 @@ const updateSupplier = async (req, res) => {
 
     const supplier = await Supplier.findById({ _id: id });
     if (!supplier) {
-      res.status(404).json({ success: false, error: "Fornecedor não encotrado" });
+      return res
+        .status(404)
+        .json({ success: false, error: "Fornecedor não encontrado" });
     }
 
     const updateUser = await Supplier.findByIdAndUpdate(
@@ -58,10 +58,10 @@ const updateSupplier = async (req, res) => {
       { name, email, phone, address }
     );
 
-    res.status(201).json({ success: true, updateUser });
+    return res.status(201).json({ success: true, updateUser });
   } catch (error) {
-    console.error("Erro ao editar funcionario:", error);
-    res
+    console.error("Erro ao editar fornecedor:", error);
+    return res
       .status(500)
       .json({ success: false, error: "Server error " + error.message });
   }
@@ -73,24 +73,23 @@ const deleteSupplier = async (req, res) => {
 
     const productCount = await Product.countDocuments({ supplier: id });
     if (productCount > 0) {
-      return res
-        .status(400)
-        .json({
-          success: false,
-          error: "Não é possível deletar fornecedor associado a um produto",
-        });
+      return res.status(400).json({
+        success: false,
+        error: "Não é possível deletar fornecedor associado a um produto",
+      });
     }
 
     const supplier = await Supplier.findByIdAndDelete({ _id: id });
     if (!supplier) {
-      res
+      return res
         .status(404)
-        .json({ success: false, error: "document not found " + error.message });
+        .json({ success: false, error: "Fornecedor não encontrado" });
     }
-    res.status(201).json({ success: true, supplier });
+
+    return res.status(201).json({ success: true, supplier });
   } catch (error) {
-    console.error("Erro editar funcionario:", error);
-    res
+    console.error("Erro ao deletar fornecedor:", error);
+    return res
       .status(500)
       .json({ success: false, error: "Server error " + error.message });
   }

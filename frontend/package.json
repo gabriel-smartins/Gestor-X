@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "jest"
   },
   "dependencies": {
     "react": "^18.3.1",
@@ -17,17 +18,25 @@
     "styled-components": "^6.1.13"
   },
   "devDependencies": {
+    "@babel/core": "^7.27.4",
+    "@babel/preset-env": "^7.27.2",
+    "@babel/preset-react": "^7.27.1",
     "@eslint/js": "^9.8.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.3.0",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.1",
     "autoprefixer": "^10.4.20",
     "axios": "^1.7.3",
+    "babel-jest": "^30.0.2",
     "eslint": "^9.8.0",
     "eslint-plugin-react": "^7.35.0",
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",
     "eslint-plugin-react-refresh": "^0.4.9",
     "globals": "^15.9.0",
+    "jest": "^30.0.2",
+    "jest-environment-jsdom": "^30.0.2",
     "postcss": "^8.4.41",
     "react-icons": "^5.2.1",
     "react-router-dom": "^6.26.0",

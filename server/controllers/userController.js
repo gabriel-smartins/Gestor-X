@@ -24,9 +24,9 @@ const createUser = async (req, res) => {
 const listUsers = async (req, res) => {
   try {
     const data = await User.find();
-    res.status(201).json({ success: true, users: data });
+    return res.status(201).json({ success: true, users: data });
   } catch (err) {
-    res.status(500).json({ success: false, error: "Erro interno " + err.message });
+    return res.status(500).json({ success: false, error: "Erro interno " + err.message });
   }
 };
 
@@ -38,11 +38,13 @@ const fetchUser = async (req, res) => {
     }
 
     const data = await User.findById(req.user._id).select('-password');
-    if (!data) return res.status(404).json({ error: "Conta não localizada" });
+    if (!data) {
+      return res.status(404).json({ error: "Conta não localizada" });
+    }
 
     return res.status(201).json({ success: true, user: data });
   } catch (err) {
-    return res.status(500).json({ success: false, error: "Erro interno " + err.message });
+    return res.status(404).json({ success: false, error: "Erro interno " + err.message });
   }
 };
 
@@ -70,9 +72,9 @@ const modifyUser = async (req, res) => {
       return res.status(404).json({ success: false, message: "Usuário inexistente" });
     }
 
-    res.json({ success: true, user: result });
+    return res.status(200).json({ success: true, user: result });
   } catch (err) {
-    res.status(500).json({ success: false, message: "Erro interno" });
+    return res.status(404).json({ success: false, message: "Erro interno" });
   }
 };
 
@@ -85,9 +87,9 @@ const removeUser = async (req, res) => {
       return res.status(404).json({ success: false, error: "Registro não localizado" });
     }
 
-    res.status(201).json({ success: true, user: removed });
+    return res.status(201).json({ success: true, user: removed });
   } catch (err) {
-    res.status(500).json({ success: false, error: "Erro interno " + err.message });
+    return res.status(500).json({ success: false, error: "Erro interno " + err.message });
   }
 };
 

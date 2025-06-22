@@ -177,10 +177,11 @@ const IncreaseQuantity = (e) => {
             <h2 className="text-xl font-semibold mb-4">Fazer Pedido</h2>
             <form onSubmit={handleOrderSubmit} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="quantity" className="block text-sm font-medium text-gray-700 mb-1">
                   Quantidade
                 </label>
                 <input
+                  id="quantity"
                   type="number"
                   min="1"
                   value={orderData.quantity}

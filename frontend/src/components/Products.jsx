@@ -192,9 +192,7 @@ const Products = () => {
                   <td className="px-4 py-2 text-gray-800">{product.name}</td>
                   <td className="px-4 py-2 text-gray-600">{product.category.name}</td>
                   <td className="px-4 py-2 text-gray-600">{product.supplier.name}</td>
-                  <td className="px-4 py-2 text-gray-600">
-                    ${product.price.toFixed(2)}
-                  </td>
+                  <td className="px-4 py-2 text-gray-600">${product.price.toFixed(2)}</td>
                   <td className="px-4 py-2">
                     <span
                       className={`inline-block px-2 py-1 rounded-full text-sm font-semibold ${
@@ -243,97 +241,42 @@ const Products = () => {
             </h2>
             <form onSubmit={handleSubmit}>
               <div className="mb-2">
-                <label className="block text-gray-700 font-semibold">Nome</label>
-                <input
-                  type="text"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleInputChange}
-                  required
-                  autoFocus
-                  className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
+                <label htmlFor="name" className="block text-gray-700 font-semibold">Nome</label>
+                <input id="name" name="name" type="text" value={formData.name} onChange={handleInputChange} required autoFocus className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
               </div>
               <div className="mb-2">
-                <label className="block text-gray-700 font-semibold">Descrição</label>
-                <textarea
-                  name="description"
-                  value={formData.description}
-                  onChange={handleInputChange}
-                  className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
+                <label htmlFor="description" className="block text-gray-700 font-semibold">Descrição</label>
+                <textarea id="description" name="description" value={formData.description} onChange={handleInputChange} className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
               </div>
               <div className="mb-2">
-                <label className="block text-gray-700 font-semibold">Preço</label>
-                <input
-                  type="number"
-                  name="price"
-                  value={formData.price}
-                  onChange={handleInputChange}
-                  required
-                  min="0"
-                  step="0.01"
-                  className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
+                <label htmlFor="price" className="block text-gray-700 font-semibold">Preço</label>
+                <input id="price" name="price" type="number" value={formData.price} onChange={handleInputChange} required min="0" step="0.01" className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
               </div>
               <div className="mb-2">
-                <label className="block text-gray-700 font-semibold">Estoque</label>
-                <input
-                  type="number"
-                  name="stock"
-                  value={formData.stock}
-                  onChange={handleInputChange}
-                  required
-                  min="0"
-                  className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
+                <label htmlFor="stock" className="block text-gray-700 font-semibold">Estoque</label>
+                <input id="stock" name="stock" type="number" value={formData.stock} onChange={handleInputChange} required min="0" className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
               </div>
               <div className="mb-2">
-                <label className="block text-gray-700 font-semibold">Categoria</label>
-                <select
-                  name="category"
-                  value={formData.category}
-                  onChange={handleInputChange}
-                  required
-                  className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                >
+                <label htmlFor="category" className="block text-gray-700 font-semibold">Categoria</label>
+                <select id="category" name="category" value={formData.category} onChange={handleInputChange} required className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
                   <option value="">Escolha a categoria</option>
                   {categories.map((cat) => (
-                    <option key={cat._id} value={cat._id}>
-                      {cat.name}
-                    </option>
+                    <option key={cat._id} value={cat._id}>{cat.name}</option>
                   ))}
                 </select>
               </div>
               <div className="mb-2">
-                <label className="block text-gray-700 font-semibold">Fornecedor</label>
-                <select
-                  name="supplier"
-                  value={formData.supplier}
-                  onChange={handleInputChange}
-                  required
-                  className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                >
+                <label htmlFor="supplier" className="block text-gray-700 font-semibold">Fornecedor</label>
+                <select id="supplier" name="supplier" value={formData.supplier} onChange={handleInputChange} required className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
                   <option value="">Escolha o fornecedor</option>
                   {suppliers.map((sup) => (
-                    <option key={sup._id} value={sup._id}>
-                      {sup.name}
-                    </option>
+                    <option key={sup._id} value={sup._id}>{sup.name}</option>
                   ))}
                 </select>
               </div>
               <div className="flex justify-end gap-2 mt-4">
-                <button
-                  type="button"
-                  onClick={closeModal}
-                  className="px-4 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400"
-                >
-                  Cancelar
-                </button>
-                <button
-                  type="submit"
-                  className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
-                >
+                <button type="button" onClick={closeModal} className="px-4 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400">Cancelar</button>
+                <button type="submit" className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
                   {editingId ? "Editar Produto" : "Adicionar Produto"}
                 </button>
               </div>
