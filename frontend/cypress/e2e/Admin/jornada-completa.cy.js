@@ -4,7 +4,7 @@ describe('Jornada Completa do Administrador no Sistema', () => {
     
     cy.visit('/login');
     cy.get('[placeholder="Digite seu email"]').type('admin@gmail.com');
-    cy.get('[placeholder="Digite sua senha"]').type('admin1');
+    cy.get('[placeholder="Digite sua senha"]').type('admin');
     cy.contains('button', 'Entrar').click();
     cy.url().should('include', '/admin-dashboard');
     cy.contains('a', 'Início').should('be.visible');

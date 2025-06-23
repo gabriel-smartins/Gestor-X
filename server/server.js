@@ -11,7 +11,6 @@ import dashboardRouter from './routes/dashboard.js';
 import connectToMongoDB from "./db/connectToMongoDB.js";
 
 const app = express()
-app.use(express.static('public'));
 app.use(cors())
 app.use(express.json());
 

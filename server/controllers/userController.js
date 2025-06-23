@@ -26,7 +26,7 @@ const listUsers = async (req, res) => {
     const data = await User.find();
     return res.status(201).json({ success: true, users: data });
   } catch (err) {
-    return res.status(500).json({ success: false, error: "Erro interno " + err.message });
+    return res.status(500).json({ success: false, error: "Erro no servidor " + err.message });
   }
 };
 

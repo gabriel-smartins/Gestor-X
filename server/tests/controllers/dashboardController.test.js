@@ -18,7 +18,6 @@ describe("getSummary", () => {
     jest.spyOn(OrderModule.default, "countDocuments").mockResolvedValue(5);
 
     jest.spyOn(ProductModule.default, "find").mockImplementation((query) => {
-
       if (query.stock === 0) {
         return {
           select: () => ({
@@ -29,7 +28,6 @@ describe("getSummary", () => {
         };
       }
 
-   
       if (query.stock?.$gt === 0 && query.stock?.$lt === 5) {
         return {
           select: () => ({
@@ -54,9 +52,7 @@ describe("getSummary", () => {
     await getSummary(req, res);
 
     expect(res.statusCode).toBe(200);
-    const data = res._getJSONData();
-
-    expect(data).toEqual({
+    expect(res._getJSONData()).toEqual({
       totalProducts: 10,
       totalStock: 50,
       ordersToday: 5,
@@ -78,13 +74,40 @@ describe("getSummary", () => {
     const req = httpMocks.createRequest();
     const res = httpMocks.createResponse();
 
-    jest.spyOn(ProductModule.default, "countDocuments").mockRejectedValue(new Error("Erro no banco"));
+    jest.spyOn(ProductModule.default, "countDocuments").mockRejectedValue(new Error("Erro"));
 
     await getSummary(req, res);
 
     expect(res.statusCode).toBe(500);
+    const json = res._getJSONData();
+    expect(json.success).toBe(false);
+    expect(json.message).toMatch(/Erro ao buscar dados do dashboard/i);
+  });
+
+  it("deve retornar totalStock 0 se aggregate vier vazio", async () => {
+    const req = httpMocks.createRequest();
+    const res = httpMocks.createResponse();
+
+    jest.spyOn(ProductModule.default, "countDocuments").mockResolvedValue(0);
+    jest.spyOn(ProductModule.default, "aggregate").mockResolvedValue([]); 
+    jest.spyOn(OrderModule.default, "countDocuments").mockResolvedValue(0);
+
+    jest.spyOn(ProductModule.default, "find").mockImplementation(() => ({
+      select: () => ({ populate: () => [] }),
+    }));
+
+    jest.spyOn(OrderModule.default, "aggregate").mockResolvedValue([]); // 
+
+    await getSummary(req, res);
+
+    expect(res.statusCode).toBe(200);
     const data = res._getJSONData();
-    expect(data.success).toBe(false);
-    expect(data.message).toMatch(/Erro ao buscar dados do dashboard/i);
+
+    expect(data.totalProducts).toBe(0);
+    expect(data.totalStock).toBe(0);
+    expect(data.ordersToday).toBe(0);
+    expect(data.outOfStock).toEqual([]);
+    expect(data.lowStock).toEqual([]);
+    expect(data.highestSaleProduct).toEqual({ message: 'Sem dados de pedidos' });
   });
 });

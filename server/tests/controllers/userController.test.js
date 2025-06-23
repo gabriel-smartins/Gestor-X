@@ -108,10 +108,27 @@ describe('User Controller', () => {
       expect(res.statusCode).toBe(404);
     });
 
+    it('deve retornar 201 com usuário encontrado', async () => {
+      const req = httpMocks.createRequest({
+        params: { id: '123' },
+        user: { _id: '123' },
+      });
+      const res = httpMocks.createResponse();
+
+      jest.spyOn(UserModel.default, 'findById').mockReturnValue({
+        select: jest.fn().mockReturnValue({
+          _id: '123',
+          name: 'Usuário',
+          email: 'teste@email.com',
+        }),
+      });
+
+      await fetchUser(req, res);
+      expect(res.statusCode).toBe(201);
+    });
   });
 
   describe('modifyUser', () => {
-    
     it('deve retornar 404 se usuário não existir', async () => {
       const req = httpMocks.createRequest({
         params: { id: 'abc' },
@@ -125,6 +142,41 @@ describe('User Controller', () => {
 
       await modifyUser(req, res);
       expect(res.statusCode).toBe(404);
+    });
+
+    it('deve atualizar e retornar 200 com os dados modificados', async () => {
+      const req = httpMocks.createRequest({
+        params: { id: 'abc' },
+        body: {
+          name: 'Novo Nome',
+          email: 'novo@email.com',
+          password: 'senha123',
+          address: 'Nova Rua',
+        },
+      });
+      const res = httpMocks.createResponse();
+
+      jest.spyOn(bcrypt, 'hash').mockResolvedValue('senhaEncriptada');
+      jest.spyOn(UserModel.default, 'findByIdAndUpdate').mockReturnValue({
+        select: jest.fn().mockResolvedValue({
+          _id: 'abc',
+          name: 'Novo Nome',
+          email: 'novo@email.com',
+          address: 'Nova Rua',
+        }),
+      });
+
+      await modifyUser(req, res);
+      expect(res.statusCode).toBe(200);
+      expect(res._getJSONData()).toEqual({
+        success: true,
+        user: {
+          _id: 'abc',
+          name: 'Novo Nome',
+          email: 'novo@email.com',
+          address: 'Nova Rua',
+        },
+      });
     });
   });
 

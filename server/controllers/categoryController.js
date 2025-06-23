@@ -12,31 +12,31 @@ const addCategory = async (req, res) => {
         .json({ success: false, error: "Categoria já existe" });
     }
 
-  
     const newCategory = new Category({
       name: formCategory,
       description: formDescription,
     });
-    const category = await newCategory.save();
+    await newCategory.save();
 
-    res
+    return res
       .status(201)
       .json({ success: true, message: "Categoria criada com sucesso!" });
   } catch (error) {
     console.error(error.message);
-    res.status(500).json({ success: false, error: "Server error" });
+    return res
+      .status(500)
+      .json({ success: false, error: "Erro no servidor" });
   }
 };
 
 const getCategorys = async (req, res) => {
-  console.log("get category");
   try {
     const categories = await Category.find();
     return res.status(201).json({ success: true, categories });
   } catch (error) {
     return res
       .status(500)
-      .json({ success: false, error: "Server error " + error.message });
+      .json({ success: false, error: "Erro no servidor" + error.message });
   }
 };
 
@@ -47,19 +47,22 @@ const updateCategory = async (req, res) => {
 
     const category = await Category.findById({ _id: id });
     if (!category) {
-      res.status(404).json({ success: false, error: "Categoria não encotrada" });
+      return res
+        .status(404)
+        .json({ success: false, error: "Categoria não encontrada" });
     }
 
     const updateCategory = await Category.findByIdAndUpdate(
       { _id: id },
-      { name: formCategory, description: formDescription }
+      { name: formCategory, description: formDescription },
+      { new: true }
     );
 
-    res.status(201).json({ success: true, updateCategory });
+    return res.status(201).json({ success: true, updateCategory });
   } catch (error) {
-    res
+    return res
       .status(500)
-      .json({ success: false, error: "Server error " + error.message });
+      .json({ success: false, error: "Erro no servidor " + error.message });
   }
 };
 
@@ -77,16 +80,17 @@ const deleteCategory = async (req, res) => {
 
     const category = await Category.findByIdAndDelete({ _id: id });
     if (!category) {
-      res
+      return res
         .status(404)
-        .json({ success: false, error: "document not found " + error.message });
+        .json({ success: false, error: "Categoria não encontrada" });
     }
-    res.status(201).json({ success: true, category });
+
+    return res.status(201).json({ success: true, category });
   } catch (error) {
-    console.error("Erro para editar categoria:", error);
-    res
+    console.error("Erro para excluir categoria:", error);
+    return res
       .status(500)
-      .json({ success: false, error: "Server error " + error.message });
+      .json({ success: false, error: "Erro no servidor " + error.message });
   }
 };
 

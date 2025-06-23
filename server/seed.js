@@ -5,8 +5,6 @@ import bcrypt from "bcrypt";
 import User from "./models/User.js";
 import connectToMongoDB from "./db/connectToMongoDB.js";
 
-// Rode com: node seed.js
-
 const register = async () => {
   try {
     await connectToMongoDB();
@@ -22,7 +20,7 @@ const register = async () => {
       name: "admin",
       email: "admin@gmail.com",
       password: hashedPassword,
-      address: "KBL",
+      address: "Rua dos bobos",
       role: "admin"
     });
 

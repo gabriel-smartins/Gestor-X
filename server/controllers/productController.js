@@ -68,7 +68,6 @@ const deleteProduct = async (req, res) => {
       return res.status(404).json({ success:false, error: 'Produto não encotrado' });
     }
 
-
     if (product.isDeleted) {
       return res.status(400).json({ success:false, error: 'Produto ja foi deletado' });
     }

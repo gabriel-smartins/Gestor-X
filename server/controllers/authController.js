@@ -18,7 +18,7 @@ export const authenticateUser = async (req, res) => {
     if (!passwordValid) {
       return res.status(401).json({
         success: false,
-        message: "E-mail ou senha incorretos",
+        message: "Senha incorreta",
       });
     }
 
@@ -29,7 +29,7 @@ export const authenticateUser = async (req, res) => {
       },
       process.env.JWT_SECRET,
       {
-        expiresIn: "5d",
+        expiresIn: "2d",
       }
     );
 
