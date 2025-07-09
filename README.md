@@ -17,30 +17,29 @@ npm install
 
 # Instale as dependências do frontend
 cd frontend
-npm install
+# npm install
 
 ### 3. Configure as variáveis de ambiente:
 
 Edite o arquivo .env dentro do diretório server com o seguinte conteúdo:
 
-PORT=[Sua Porta]
-MONGO_DB_URI=[URL de Conexão com o MongoDB]
+# PORT=[Sua Porta]
+# MONGO_DB_URI=[URL de Conexão com o MongoDB]
 JWT_SECRET=[Sua Chave Secreta]
 
 # Inicie o servidor backend
 cd server
-npm start
+# npm start
 
 # Inicie o servidor frontend
 cd frontend
-npm run dev
+# npm run dev
 
-# Execute o comando "node seed.js" na raiz do projeto
-cd ..
+# Execute o comando "node seed.js" dentro da pasta server do projeto
 node seed.js
 
 # Efetue o login 
 email: admin@gmail.com
-senha: admin
+#senha: admin
 
 
