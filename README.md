@@ -33,6 +33,7 @@ JWT_SECRET=[Sua Chave Secreta]
 
 # Inicie o servidor backend
 cd server
+
 npm start
 
 # Inicie o servidor frontend
